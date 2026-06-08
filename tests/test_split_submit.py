@@ -4,11 +4,13 @@
 import os
 import subprocess
 import sys
+from unittest.mock import patch
 
 import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
-from split_submit import SubmissionState, build_split_summary_adf
+from jira_utils import create_issue
+from split_submit import SubmissionState, build_split_summary_adf, discover_state
 
 SCRIPT = os.path.join(os.path.dirname(__file__), "..", "scripts", "split_submit.py")
 
@@ -149,3 +151,76 @@ class TestSplitSummaryAdf:
         item = adf["content"][1]["content"][0]
         url = item["content"][0]["content"][0]["attrs"]["url"]
         assert "//" not in url.replace("https://", "")
+
+
+class TestCreateIssueReporter:
+    @patch("jira_utils.api_call_with_retry")
+    def test_reporter_included_when_provided(self, mock_api):
+        mock_api.return_value = {"key": "RHAIRFE-999"}
+        create_issue(
+            "https://jira.example.com",
+            "user",
+            "token",
+            "RHAIRFE",
+            "Feature Request",
+            "Test summary",
+            {"type": "doc", "version": 1, "content": []},
+            "Major",
+            reporter_account_id="abc123",
+        )
+        call_body = mock_api.call_args[1].get("body") or mock_api.call_args[0][4]
+        assert call_body["fields"]["reporter"] == {"accountId": "abc123"}
+
+    @patch("jira_utils.api_call_with_retry")
+    def test_reporter_omitted_when_not_provided(self, mock_api):
+        mock_api.return_value = {"key": "RHAIRFE-999"}
+        create_issue(
+            "https://jira.example.com",
+            "user",
+            "token",
+            "RHAIRFE",
+            "Feature Request",
+            "Test summary",
+            {"type": "doc", "version": 1, "content": []},
+            "Major",
+        )
+        call_body = mock_api.call_args[1].get("body") or mock_api.call_args[0][4]
+        assert "reporter" not in call_body["fields"]
+
+
+class TestDiscoverStateReporter:
+    @patch("split_submit.get_issue")
+    @patch("split_submit.get_comments")
+    def test_captures_parent_reporter(self, mock_comments, mock_issue):
+        mock_comments.return_value = []
+        mock_issue.return_value = {
+            "fields": {
+                "issuelinks": [],
+                "status": {"statusCategory": {"key": "new"}},
+                "components": [],
+                "labels": [],
+                "parent": None,
+                "reporter": {
+                    "accountId": "reporter-123",
+                    "displayName": "Jane Doe",
+                },
+            }
+        }
+        state = discover_state("https://jira.example.com", "u", "t", "RHAIRFE-1000", [])
+        assert state.parent_reporter_account_id == "reporter-123"
+
+    @patch("split_submit.get_issue")
+    @patch("split_submit.get_comments")
+    def test_handles_missing_reporter(self, mock_comments, mock_issue):
+        mock_comments.return_value = []
+        mock_issue.return_value = {
+            "fields": {
+                "issuelinks": [],
+                "status": {"statusCategory": {"key": "new"}},
+                "components": [],
+                "labels": [],
+                "parent": None,
+            }
+        }
+        state = discover_state("https://jira.example.com", "u", "t", "RHAIRFE-1000", [])
+        assert state.parent_reporter_account_id is None

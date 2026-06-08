@@ -92,6 +92,7 @@ class SubmissionState:
         self.parent_components = []  # inherited by children
         self.parent_labels = []  # non-automation labels inherited
         self.parent_parent_key = None  # Jira parent (e.g. RHAISTRAT) inherited
+        self.parent_reporter_account_id = None  # original reporter to preserve on children
 
 
 def discover_state(server, user, token, parent_key, expected_children):
@@ -119,9 +120,13 @@ def discover_state(server, user, token, parent_key, expected_children):
             state.phase2_done[idx] = created_key
             continue
 
-    # 2. Check issue links, components, labels, and Jira parent
+    # 2. Check issue links, components, labels, reporter, and Jira parent
     issue = get_issue(
-        server, user, token, parent_key, ["issuelinks", "status", "components", "labels", "parent"]
+        server,
+        user,
+        token,
+        parent_key,
+        ["issuelinks", "status", "components", "labels", "parent", "reporter"],
     )
     for link in issue.get("fields", {}).get("issuelinks", []):
         if link.get("type", {}).get("name") != "Issue split":
@@ -145,6 +150,9 @@ def discover_state(server, user, token, parent_key, expected_children):
     jira_parent = issue.get("fields", {}).get("parent")
     if jira_parent:
         state.parent_parent_key = jira_parent.get("key")
+    reporter = issue.get("fields", {}).get("reporter")
+    if reporter:
+        state.parent_reporter_account_id = reporter.get("accountId")
 
     # 3. Check parent status
     status_cat = issue.get("fields", {}).get("status", {}).get("statusCategory", {}).get("key", "")
@@ -245,7 +253,7 @@ def phase2_create_link(server, user, token, parent_key, children, state, artifac
             state.phase2_done[idx] = "RHAIRFE-DRY"
             continue
 
-        # 1. Create ticket with labels, inherited components, and parent
+        # 1. Create ticket with labels, inherited components, parent, and reporter
         child_key = create_issue(
             server,
             user,
@@ -258,6 +266,7 @@ def phase2_create_link(server, user, token, parent_key, children, state, artifac
             labels=labels,
             components=state.parent_components,
             parent_key=state.parent_parent_key,
+            reporter_account_id=state.parent_reporter_account_id,
         )
         print(f"  Phase 2: Created {child_key} for child {idx}/{total}: {title}")
         print(f"           Labels: {', '.join(labels)}")
