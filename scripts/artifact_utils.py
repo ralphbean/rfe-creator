@@ -62,7 +62,7 @@ SCHEMAS = {
         "rfe_id": {
             "type": "string",
             "required": True,
-            "pattern": r"^(RFE-\d+|RHAIRFE-\d+)$",
+            "pattern": r"^(DRAFT-\d+|RHAIRFE-\d+)$",
         },
         "title": {
             "type": "string",
@@ -87,7 +87,7 @@ SCHEMAS = {
         "parent_key": {
             "type": "string",
             "required": False,
-            "pattern": r"^(RFE-\d+|RHAIRFE-\d+)$",
+            "pattern": r"^(DRAFT-\d+|RHAIRFE-\d+)$",
             "default": None,
         },
         "original_labels": {
@@ -100,7 +100,7 @@ SCHEMAS = {
         "rfe_id": {
             "type": "string",
             "required": True,
-            "pattern": r"^(RFE-\d+|RHAIRFE-\d+)$",
+            "pattern": r"^(DRAFT-\d+|RHAIRFE-\d+)$",
         },
         "score": {
             "type": "int",
@@ -468,7 +468,7 @@ def find_artifact_file(artifacts_dir, identifier):
     """Find the main artifact file for a given RFE ID or Jira key.
 
     Matches:
-    - RFE-NNN.md (local pre-submission)
+    - DRAFT-NNN.md (local pre-submission)
     - RHAIRFE-NNNN.md (Jira-keyed)
 
     Excludes companion files (-comments.md, -removed-context.md).
@@ -476,7 +476,7 @@ def find_artifact_file(artifacts_dir, identifier):
 
     Args:
         artifacts_dir: path to artifacts directory
-        identifier: RFE-NNN or RHAIRFE-NNNN
+        identifier: DRAFT-NNN or RHAIRFE-NNNN
 
     Returns:
         Full path to artifact file, or None if not found.
@@ -501,8 +501,8 @@ def find_artifact_file(artifacts_dir, identifier):
                     continue
                 return path
 
-        # Match by local RFE ID (exact: RFE-001.md, legacy: RFE-001-slug.md)
-        if identifier.startswith("RFE-"):
+        # Match by local draft ID (exact: DRAFT-001.md, legacy: DRAFT-001-slug.md)
+        if identifier.startswith("DRAFT-"):
             if filename == f"{identifier}.md" or filename.startswith(identifier + "-"):
                 path = os.path.join(tasks_dir, filename)
                 data, _ = read_frontmatter(path)
@@ -529,7 +529,7 @@ def find_artifact_file_including_archived(artifacts_dir, identifier):
             if filename == f"{identifier}.md":
                 return os.path.join(tasks_dir, filename)
 
-        if identifier.startswith("RFE-"):
+        if identifier.startswith("DRAFT-"):
             if filename == f"{identifier}.md" or filename.startswith(identifier + "-"):
                 return os.path.join(tasks_dir, filename)
 
@@ -550,7 +550,7 @@ def find_removed_context_yaml(artifacts_dir, identifier):
             if filename == f"{identifier}-removed-context.yaml":
                 return os.path.join(tasks_dir, filename)
 
-        if identifier.startswith("RFE-"):
+        if identifier.startswith("DRAFT-"):
             if filename == f"{identifier}-removed-context.yaml":
                 return os.path.join(tasks_dir, filename)
 
@@ -571,7 +571,7 @@ def find_removed_context_file(artifacts_dir, identifier):
             if filename == f"{identifier}-removed-context.md":
                 return os.path.join(tasks_dir, filename)
 
-        if identifier.startswith("RFE-"):
+        if identifier.startswith("DRAFT-"):
             if filename == f"{identifier}-removed-context.md":
                 return os.path.join(tasks_dir, filename)
 
@@ -595,7 +595,7 @@ def find_review_file(artifacts_dir, identifier):
             if filename == f"{identifier}-review.md":
                 return os.path.join(reviews_dir, filename)
 
-        if identifier.startswith("RFE-"):
+        if identifier.startswith("DRAFT-"):
             if filename == f"{identifier}-review.md":
                 return os.path.join(reviews_dir, filename)
 
@@ -660,14 +660,14 @@ def scan_review_files(artifacts_dir):
 
 
 def rename_to_jira_key(artifacts_dir, rfe_id, jira_key):
-    """Rename RFE-NNN.md files to RHAIRFE-NNNN.md after submission.
+    """Rename DRAFT-NNN.md files to their Jira key after submission.
 
     Renames the task file, companion files, and review file.
     Updates rfe_id in frontmatter to the new Jira key.
 
     Args:
         artifacts_dir: path to artifacts directory
-        rfe_id: e.g. "RFE-001"
+        rfe_id: e.g. "DRAFT-001"
         jira_key: e.g. "RHAIRFE-1600"
     """
     tasks_dir = os.path.join(artifacts_dir, "rfe-tasks")
@@ -800,7 +800,7 @@ def parse_child_artifact(path):
     if data.get("title"):
         title = data["title"]
     else:
-        title_match = re.match(r"^#\s+RFE-\d+:\s+(.+)$", content, re.MULTILINE)
+        title_match = re.match(r"^#\s+DRAFT-\d+:\s+(.+)$", content, re.MULTILINE)
         title = title_match.group(1).strip() if title_match else "Untitled"
 
     if data.get("priority"):

@@ -159,8 +159,8 @@ Returning to **Step 3d: Between-Batch Summary** of `/rfe.auto-fix`. Re-read the 
 
 Original: RHAIRFE-1234 (archived)
 New RFEs:
-- RFE-003: <title> (Priority: Normal) — PASS
-- RFE-004: <title> (Priority: Normal) — PASS
+- DRAFT-003: <title> (Priority: Normal) — PASS
+- DRAFT-004: <title> (Priority: Normal) — PASS
 
 Coverage: All original scope items covered
 Review: All new RFEs passed

@@ -16,14 +16,14 @@ artifacts/
     RHAIRFE-1595-comments.md # Companion: stakeholder comment history
     RHAIRFE-1595-removed-context.yaml  # Companion: structured removed content with type classification
     RHAIRFE-1595-removed-context.md  # Legacy companion (markdown, being phased out)
-    RFE-001.md               # New RFE (pre-submission, renamed on submit)
+    DRAFT-001.md             # New RFE (pre-submission, renamed on submit)
 
   rfe-originals/            # Raw Jira descriptions at time of fetch (not templated)
     RHAIRFE-1595.md          # Baseline for before/after analysis and submit-time conflict detection
 
   rfe-reviews/              # Per-issue review files with YAML frontmatter
     RHAIRFE-1595-review.md
-    RFE-001-review.md
+    DRAFT-001-review.md
 
 ```
 
