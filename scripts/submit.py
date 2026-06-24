@@ -203,7 +203,7 @@ def main():
 
     # Build parent ancestry map to identify descendants of Jira split
     # parents at any depth (handles re-splits where grandchildren point
-    # to local intermediary parents like RFE-017 → RHAIRFE-1234).
+    # to local intermediary parents like DRAFT-017 → RHAIRFE-1234).
     _parent_of = {}  # rfe_id -> parent_key
     for _, data in tasks:
         pk = data.get("parent_key")
@@ -354,8 +354,8 @@ def main():
     # Filter to non-archived, non-submitted RFEs.  Any descendant of a
     # Jira split parent (RHAIRFE-*) was already handled by split_submit.py
     # in Phase 1 — this includes grandchildren from re-splits whose
-    # immediate parent is a local ID (e.g. RFE-017 → RHAIRFE-1234).
-    # Children of purely local parents (RFE-NNN with no RHAIRFE ancestor)
+    # immediate parent is a local ID (e.g. DRAFT-017 → RHAIRFE-1234).
+    # Children of purely local parents (DRAFT-NNN with no RHAIRFE ancestor)
     # go through Phase 2 as regular creates.
     # Filtering Submitted makes replay safe: already-submitted entries are
     # skipped, preventing duplicate Jira creates.

@@ -149,7 +149,7 @@ Always write `artifacts/rfe-reviews/{ID}-split-status.yaml` as your final step:
 status: completed
 action: split
 reason: "split into N children"
-children: [RFE-001, RFE-002]
+children: [DRAFT-001, DRAFT-002]
 ```
 
 Or if no split was needed:

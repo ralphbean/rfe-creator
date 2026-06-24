@@ -94,7 +94,7 @@ The strategy skills have moved to a dedicated repo: [ederign/strat-creator](http
 
 All artifacts are written to `artifacts/`. You can edit any file between steps:
 
-- Edit an RFE in `artifacts/rfe-tasks/RFE-001-*.md`, then re-run `/rfe.review`
+- Edit an RFE in `artifacts/rfe-tasks/DRAFT-001-*.md`, then re-run `/rfe.review`
 - Re-run `/rfe.create` to start over from scratch
 
 ## assess-rfe Integration

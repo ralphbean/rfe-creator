@@ -438,7 +438,7 @@ def main():
 
     # Find leaf children: walk the tree recursively to collect all
     # non-archived descendants.  Intermediary nodes (archived local IDs
-    # like RFE-017) are stepping stones — their children belong to the
+    # like DRAFT-017) are stepping stones — their children belong to the
     # RHAIRFE parent for Jira linking purposes.
     tasks_by_parent = {}
     for path, data in tasks:
