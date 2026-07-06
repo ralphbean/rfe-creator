@@ -9,8 +9,6 @@ is itself a valid Jira project key.
 import os
 import sys
 
-import pytest
-
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
 from artifact_utils import validate
