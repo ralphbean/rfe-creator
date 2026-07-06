@@ -362,7 +362,8 @@ class TestRemoveLabels:
         """Rejected new RFE (RFE-NNN) → SKIP, no label removal."""
         _write(f"{art_dir}/rfe-tasks/DRAFT-001.md", TASK_FM.format(rfe_id="DRAFT-001"))
         _write(
-            f"{art_dir}/rfe-reviews/DRAFT-001-review.md", REJECT_REVIEW_FM.format(rfe_id="DRAFT-001")
+            f"{art_dir}/rfe-reviews/DRAFT-001-review.md",
+            REJECT_REVIEW_FM.format(rfe_id="DRAFT-001"),
         )
 
         stdout, _, rc = _run_submit(art_dir)
