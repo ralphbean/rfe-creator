@@ -52,10 +52,10 @@ When the user doesn't specify, use these defaults:
   priority: Major
 ```
 
-Validate the batch file before spending any agent budget on it:
+Validate the batch file before spending any agent budget on it. Use `--strict` so unknown fields and duplicate prompts (typically typos or copy-paste mistakes) block the run too, not just hard errors:
 
 ```bash
-python3 scripts/validate_batch_input.py <input_file>
+python3 scripts/validate_batch_input.py <input_file> --strict
 ```
 
 If this exits nonzero, stop and report the printed `ERROR:`/`WARNING:` lines to the user instead of proceeding — do not fan out agents against a batch that's already known to be malformed.
