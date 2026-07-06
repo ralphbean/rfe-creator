@@ -52,6 +52,14 @@ When the user doesn't specify, use these defaults:
   priority: Major
 ```
 
+Validate the batch file before spending any agent budget on it:
+
+```bash
+python3 scripts/validate_batch_input.py <input_file>
+```
+
+If this exits nonzero, stop and report the printed `ERROR:`/`WARNING:` lines to the user instead of proceeding — do not fan out agents against a batch that's already known to be malformed.
+
 Count entries and pre-allocate all IDs upfront:
 
 ```bash
