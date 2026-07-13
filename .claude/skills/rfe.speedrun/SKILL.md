@@ -32,7 +32,7 @@ Run:
 python3 scripts/resolve_project.py
 ```
 
-If it exits non-zero, ask the user: "What Jira project key should I use? (e.g., RHAIRFE, MYPROJECT)" Then export `JIRA_PROJECT=<answer>` and re-run to confirm.
+If it exits non-zero, ask the user: "What Jira project key should I use? ?" Then export `JIRA_PROJECT=<answer>` and re-run to confirm.
 
 Determine pipeline mode:
 - **Mode A (Batch YAML)**: `--input` flag present → batch create + auto-fix + submit

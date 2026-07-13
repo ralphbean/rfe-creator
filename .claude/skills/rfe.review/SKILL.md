@@ -33,7 +33,7 @@ Run:
 python3 scripts/resolve_project.py
 ```
 
-If it exits non-zero, ask the user: "What Jira project key should I use? (e.g., RHAIRFE, MYPROJECT)" Then export `JIRA_PROJECT=<answer>` and re-run to confirm.
+If it exits non-zero, ask the user: "What Jira project key should I use? ?" Then export `JIRA_PROJECT=<answer>` and re-run to confirm.
 
 For each ID, check if `artifacts/rfe-tasks/<id>.md` already exists locally (use Glob, don't read the file). Separate IDs into:
 - **Local**: task file exists — skip fetch

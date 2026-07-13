@@ -121,7 +121,7 @@ export JIRA_USER=your-email@example.com
 export JIRA_TOKEN=your-api-token
 
 # Set the Jira project key (required)
-export JIRA_PROJECT=RHAIRFE
+export JIRA_PROJECT=YOURPROJECT
 
 # Optionally set the issue type (default: Feature Request)
 export JIRA_ISSUE_TYPE='Feature Request'

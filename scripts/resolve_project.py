@@ -20,7 +20,7 @@ def main():
         print(
             "ERROR: JIRA_PROJECT is not set.\n"
             "Set the Jira project key for this RFE workflow:\n"
-            "  export JIRA_PROJECT=RHAIRFE\n"
+            "  export JIRA_PROJECT=YOURPROJECT\n"
             "Optionally set the issue type (default: Feature Request):\n"
             "  export JIRA_ISSUE_TYPE='Feature Request'",
             file=sys.stderr,

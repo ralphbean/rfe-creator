@@ -34,7 +34,7 @@ Run:
 python3 scripts/resolve_project.py
 ```
 
-If it exits non-zero, ask the user: "What Jira project key should I use? (e.g., RHAIRFE, MYPROJECT)" Then export `JIRA_PROJECT=<answer>` and re-run to confirm.
+If it exits non-zero, ask the user: "What Jira project key should I use? ?" Then export `JIRA_PROJECT=<answer>` and re-run to confirm.
 
 For each ID, verify the task file exists via Glob (`artifacts/rfe-tasks/<ID>.md`). If missing, report and skip.
 
