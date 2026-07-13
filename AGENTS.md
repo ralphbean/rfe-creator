@@ -83,7 +83,7 @@ Required environment variables:
 JIRA_SERVER=https://your-site.atlassian.net
 JIRA_USER=your-email@example.com
 JIRA_TOKEN=your-api-token
-JIRA_PROJECT=RHAIRFE                     # Required: Jira project key
+JIRA_PROJECT=YOURPROJECT                     # Required: Jira project key
 JIRA_ISSUE_TYPE=Feature Request          # Optional: defaults to "Feature Request"
 ```
 

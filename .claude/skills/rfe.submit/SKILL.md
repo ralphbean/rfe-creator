@@ -29,7 +29,7 @@ Also verify `JIRA_PROJECT` is set by running `python3 scripts/resolve_project.py
 
 > Set your Jira project key:
 > ```
-> export JIRA_PROJECT=RHAIRFE
+> export JIRA_PROJECT=YOURPROJECT
 > ```
 
 ## Step 1: Run Submission
