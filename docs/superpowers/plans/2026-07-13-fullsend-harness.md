@@ -173,7 +173,7 @@ EOF
 ### Task 2: Create the harness config
 
 **Files:**
-- Create: `.fullsend/harnesses/rfe-creator.yaml`
+- Create: `.fullsend/harness/rfe-creator.yaml`
 
 - [ ] **Step 1: Create the harness file**
 
@@ -212,7 +212,7 @@ env:
 - [ ] **Step 2: Commit**
 
 ```bash
-git add .fullsend/harnesses/rfe-creator.yaml
+git add .fullsend/harness/rfe-creator.yaml
 git commit -S -s -m "$(cat <<'EOF'
 Add fullsend harness config for rfe-creator
 
@@ -455,7 +455,7 @@ Run: `find .fullsend -type f | sort`
 Expected:
 ```
 .fullsend/agents/rfe-creator.md
-.fullsend/harnesses/rfe-creator.yaml
+.fullsend/harness/rfe-creator.yaml
 .fullsend/scripts/post-submit.sh
 .fullsend/scripts/pre-fetch.sh
 .fullsend/scripts/validate-artifacts.sh

@@ -87,7 +87,7 @@ with a CEL expression to match Jira work-item events for the target project.
 .fullsend/
   agents/
     rfe-creator.md              # Agent definition (adapter to rfe.speedrun)
-  harnesses/
+  harness/
     rfe-creator.yaml            # Harness config (entry point)
   scripts/
     pre-fetch.sh                # Fetches issue from Jira into artifacts/
@@ -95,7 +95,7 @@ with a CEL expression to match Jira work-item events for the target project.
     validate-artifacts.sh       # Validates frontmatter, project IDs, recommendations
 ```
 
-The harness file (`.fullsend/harnesses/rfe-creator.yaml`) is the main entry
+The harness file (`.fullsend/harness/rfe-creator.yaml`) is the main entry
 point. It wires together the agent definition, pre/post scripts, validation,
 sandbox policy, and environment variables.
 
@@ -106,7 +106,7 @@ Register the agent in your `.fullsend/config.yaml`:
 ```yaml
 agents:
   - name: rfe-creator
-    harness: https://github.com/opendatahub-io/rfe-creator/blob/main/.fullsend/harnesses/rfe-creator.yaml
+    harness: https://github.com/opendatahub-io/rfe-creator/blob/main/.fullsend/harness/rfe-creator.yaml
 ```
 
 For Jira polling, add a `jira-poll` input driver to your poll configuration
@@ -115,4 +115,4 @@ that queries the target project. The poll driver emits
 
 ## Source
 
-[`.fullsend/harnesses/rfe-creator.yaml`](harnesses/rfe-creator.yaml)
+[`.fullsend/harness/rfe-creator.yaml`](harness/rfe-creator.yaml)

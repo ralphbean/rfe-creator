@@ -41,7 +41,7 @@ this variable automatically once they land. For now, manual invocation suffices.
 .fullsend/
   agents/
     rfe-creator.md              # Agent definition
-  harnesses/
+  harness/
     rfe-creator.yaml            # Harness config
   scripts/
     pre-fetch.sh                # Fetch issue from Jira into artifacts/
@@ -54,7 +54,7 @@ No local policy file. The harness references the base policy from
 
 ## Harness Config
 
-File: `.fullsend/harnesses/rfe-creator.yaml`
+File: `.fullsend/harness/rfe-creator.yaml`
 
 ```yaml
 agent: agents/rfe-creator.md
@@ -277,7 +277,7 @@ exist. This requires adding a `--from-reviews` flag that globs
 ## Future: Eval Integration
 
 Not in scope for the PoC. When ready, a second harness
-(`rfe-creator-eval.yaml`) can use `base: harnesses/rfe-creator.yaml` and
+(`rfe-creator-eval.yaml`) can use `base: harness/rfe-creator.yaml` and
 override the pre/post scripts to assemble `batch.yaml` from the eval dataset
 and run the judge suite against the artifacts. The agent definition handles
 this naturally — if `batch.yaml` exists, the skill runs in batch mode.
