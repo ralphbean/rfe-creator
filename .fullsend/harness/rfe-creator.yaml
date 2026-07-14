@@ -1,4 +1,5 @@
 agent: agents/rfe-creator.md
+role: e2e
 model: opus
 policy: fullsend-ai/agents:policies/base.yaml
 timeout_minutes: 30
