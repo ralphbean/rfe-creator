@@ -29,9 +29,10 @@ validation_loop:
   script: scripts/validate-artifacts.sh
   max_iterations: 1
 
-runner_env:
-  FULLSEND_WORK_ITEM_URL: "${FULLSEND_WORK_ITEM_URL}"
-  JIRA_SERVER: "${JIRA_SERVER}"
-  JIRA_USER: "${JIRA_USER}"
-  JIRA_TOKEN: "${JIRA_TOKEN}"
-  JIRA_PROJECT: "${JIRA_PROJECT}"
+env:
+  runner:
+    FULLSEND_WORK_ITEM_URL: "${FULLSEND_WORK_ITEM_URL}"
+    JIRA_SERVER: "${JIRA_SERVER}"
+    JIRA_USER: "${JIRA_USER}"
+    JIRA_TOKEN: "${JIRA_TOKEN}"
+    JIRA_PROJECT: "${JIRA_PROJECT}"
