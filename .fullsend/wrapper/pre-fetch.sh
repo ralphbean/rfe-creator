@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Ensure scripts/ is available in CWD by symlinking to the repo's scripts dir.
-# The symlink at .fullsend/scripts -> ../scripts resolves through to the real dir.
+# Copy scripts/ into CWD so they're available both here (host) and inside the
+# sandbox (where a symlink to a host path would be broken).
 if [[ ! -e scripts ]]; then
     REAL_SCRIPTS="$(cd "$(dirname "${BASH_SOURCE[0]}")/../scripts" && pwd -P)"
-    ln -s "$REAL_SCRIPTS" scripts
+    cp -r "$REAL_SCRIPTS" scripts
 fi
 
 # Extract issue key from URL
