@@ -5,12 +5,12 @@ policy: policies/rfe-creator.yaml
 timeout_minutes: 30
 
 skills:
-  - .claude/skills/rfe.speedrun
-  - .claude/skills/rfe.create
-  - .claude/skills/rfe.review
-  - .claude/skills/rfe.auto-fix
-  - .claude/skills/rfe.split
-  - .claude/skills/rfe.submit
+  - ../.claude/skills/rfe.speedrun
+  - ../.claude/skills/rfe.create
+  - ../.claude/skills/rfe.review
+  - ../.claude/skills/rfe.auto-fix
+  - ../.claude/skills/rfe.split
+  - ../.claude/skills/rfe.submit
 
 pre_script: scripts/pre-fetch.sh
 post_script: scripts/post-submit.sh
