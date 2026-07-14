@@ -18,6 +18,10 @@ if [[ ! -d scripts/yaml ]]; then
     find "$YAML_PKG" -maxdepth 1 -name '*.py' -exec cp {} scripts/yaml/ \;
 fi
 
+# Bootstrap assess-rfe plugin (clones from GitHub on the host where
+# network is available; the sandbox has no outbound access).
+bash scripts/bootstrap-assess-rfe.sh
+
 # Extract issue key from URL
 # e.g., https://issues.redhat.com/browse/PROJ-1234 -> PROJ-1234
 ISSUE_KEY="${FULLSEND_WORK_ITEM_URL##*/}"

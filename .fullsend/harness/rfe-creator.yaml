@@ -36,3 +36,5 @@ env:
     JIRA_USER: "${JIRA_USER}"
     JIRA_TOKEN: "${JIRA_TOKEN}"
     JIRA_PROJECT: "${JIRA_PROJECT}"
+  sandbox:
+    RFE_SKIP_BOOTSTRAP: "1"
