@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Ensure scripts/ is available in CWD (see pre-fetch.sh for explanation)
-if [[ ! -e scripts ]]; then
-    REAL_SCRIPTS="$(cd "$(dirname "${BASH_SOURCE[0]}")/../scripts" && pwd -P)"
-    ln -s "$REAL_SCRIPTS" scripts
-fi
+# Fullsend runs validation from the iteration directory. The extracted
+# repo is at TARGET_REPO_DIR, and the agent works from the tmp/
+# subdirectory where artifacts/ and scripts/ live.
+cd "${TARGET_REPO_DIR:-.}/tmp"
 
 errors=0
 
