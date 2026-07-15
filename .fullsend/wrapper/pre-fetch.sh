@@ -8,6 +8,21 @@ if [[ ! -e scripts ]]; then
     cp -r "$REAL_SCRIPTS" scripts
 fi
 
+# Copy .claude/skills/ into CWD so sub-agents can read prompt files
+# (e.g., .claude/skills/rfe.review/prompts/assess-agent.md) inside the
+# sandbox where symlinks to host paths are broken.
+REAL_SKILLS="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.claude/skills" && pwd -P)"
+if [[ -d "$REAL_SKILLS" ]]; then
+    mkdir -p .claude/skills
+    for skill_dir in "$REAL_SKILLS"/rfe.* "$REAL_SKILLS"/rfe-*; do
+        [[ -d "$skill_dir" ]] || continue
+        skill_name="$(basename "$skill_dir")"
+        if [[ ! -e ".claude/skills/$skill_name" ]]; then
+            cp -r "$skill_dir" ".claude/skills/$skill_name"
+        fi
+    done
+fi
+
 # Vendor PyYAML into scripts/ so it's on sys.path when the sandbox runs
 # python3 scripts/*.py (Python adds the script's directory to sys.path[0]).
 # Exclude the C extension (.so) — the sandbox lacks libyaml; PyYAML's
